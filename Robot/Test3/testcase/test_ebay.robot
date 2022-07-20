@@ -1,9 +1,12 @@
 ***Settings***
-Library           SeleniumLibrary
+# Library           SeleniumLibrary
 
-Resource           ${CURDIR}/../keywords/pages/home_page.robot
-Variables          ${CURDIR}/../keywords/resources/testdata/testdata.yaml
-Resource            ${CURDIR}/../keywords/common.robot
+# Resource           ${CURDIR}/../keywords/pages/home_page.robot
+# Variables          ${CURDIR}/../keywords/resources/testdata/testdata.yaml
+# Resource            ${CURDIR}/../keywords/common.robot
+
+
+Resource            ${CURDIR}/../keywords/imports.robot
 ***Test Cases***
 
 test1 
