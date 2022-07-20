@@ -17,7 +17,7 @@ test1
     common.openEbay 
     home_page.Search products by keyword   ${tc_01['search_keyword']}
     
-
+    
     SeleniumLibrary.Wait until element is visible     xpath=//div[@id='mainContent']//li[contains(@class,'s-item')]
 
     ${result}=   Get text     //h1[@class='srp-controls__count-heading']//span[2]
