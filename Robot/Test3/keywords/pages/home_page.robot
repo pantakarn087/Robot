@@ -7,7 +7,6 @@ Resource            ${CURDIR}/../common.robot
 
 
 
-
 ${Search lo}           id=gh-ac
 
 ${Search Botton}          id=gh-btn
