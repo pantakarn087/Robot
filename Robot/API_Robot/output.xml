@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generator="Robot 5.0.1 (Python 3.10.5 on win32)" generated="20220725 16:15:28.645" rpa="false" schemaversion="3">
+<robot generator="Robot 5.0.1 (Python 3.10.5 on win32)" generated="20220726 11:23:53.962" rpa="false" schemaversion="3">
 <suite id="s1" name="RO API" source="D:\SourceT\Robot\API_Robot\RO_API.robot">
-<test id="s1-t1" name="TC03 Post assests" line="25">
+<test id="s1-t1" name="TC03 Post assests" line="24">
 <kw name="Create Dictionary" library="BuiltIn">
 <var>${jason_body_req}</var>
 <arg>text=I LOVE API SUD SUD</arg>
 <doc>Creates and returns a dictionary based on the given ``items``.</doc>
-<msg timestamp="20220725 16:15:28.851" level="INFO">${jason_body_req} = {'text': 'I LOVE API SUD SUD'}</msg>
-<status status="PASS" starttime="20220725 16:15:28.850" endtime="20220725 16:15:28.851"/>
+<msg timestamp="20220726 11:23:54.163" level="INFO">${jason_body_req} = {'text': 'I LOVE API SUD SUD'}</msg>
+<status status="PASS" starttime="20220726 11:23:54.163" endtime="20220726 11:23:54.163"/>
 </kw>
 <kw name="POST" library="RequestsLibrary">
 <var>${resources}</var>
@@ -15,56 +15,61 @@
 <arg>expected_status=200</arg>
 <arg>json=${jason_body_req}</arg>
 <doc>Sends a POST request.</doc>
-<msg timestamp="20220725 16:15:30.745" level="INFO">POST Request : url=https://api.funtranslations.com/translate/yoda.json 
+<msg timestamp="20220726 11:23:55.740" level="INFO">POST Request : url=https://api.funtranslations.com/translate/yoda.json 
  path_url=/translate/yoda.json 
  headers={'User-Agent': 'python-requests/2.28.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '30', 'Content-Type': 'application/json'} 
  body=b'{"text": "I LOVE API SUD SUD"}' 
  </msg>
-<msg timestamp="20220725 16:15:30.746" level="INFO">POST Response : url=https://api.funtranslations.com/translate/yoda.json 
- status=429, reason=Too Many Requests 
- headers={'Date': 'Mon, 25 Jul 2022 09:15:29 GMT', 'Server': 'Apache', 'Access-Control-Allow-Origin': '*', 'X-Auth-Status': 'true', 'X-RateLimit-Limit': '5 per hour', 'X-RateLimit-Remaining': '0', 'Cache-Control': 'max-age={expires}, pre-check=86400, post-check=43200', 'Expires': '0', 'X-Powered-By': 'Luracast Restler v3.0.0rc3', 'Content-Language': 'en', 'Upgrade': 'h2', 'Connection': 'Upgrade, Keep-Alive', 'Vary': 'User-Agent', 'Keep-Alive': 'timeout=5, max=100', 'Transfer-Encoding': 'chunked', 'Content-Type': 'application/json; charset=utf-8'} 
+<msg timestamp="20220726 11:23:55.740" level="INFO">POST Response : url=https://api.funtranslations.com/translate/yoda.json 
+ status=200, reason=OK 
+ headers={'Date': 'Tue, 26 Jul 2022 04:23:54 GMT', 'Server': 'Apache', 'Access-Control-Allow-Origin': '*', 'X-Auth-Status': 'true', 'X-RateLimit-Limit': '5 per hour', 'X-RateLimit-Remaining': '3', 'Cache-Control': 'max-age={expires}, pre-check=86400, post-check=43200', 'Expires': '0', 'X-Powered-By': 'Luracast Restler v3.0.0rc3', 'Content-Language': 'en', 'Upgrade': 'h2', 'Connection': 'Upgrade, Keep-Alive', 'Vary': 'User-Agent', 'Keep-Alive': 'timeout=5, max=100', 'Transfer-Encoding': 'chunked', 'Content-Type': 'application/json; charset=utf-8'} 
  body={
-    "error": {
-        "code": 429,
-        "message": "Too Many Requests: Rate limit of 5 requests per hour exceeded. Please wait for 56 minutes and 12 seconds."
+    "success": {
+        "total": 1
+    },
+    "contents": {
+        "translated": "I love api sud sud",
+        "text": "I LOVE API SUD SUD",
+        "translation": "yoda"
     }
 } 
  </msg>
-<msg timestamp="20220725 16:15:30.746" level="FAIL">Url: https://api.funtranslations.com/translate/yoda.json Expected status: 429 != 200</msg>
-<status status="FAIL" starttime="20220725 16:15:28.851" endtime="20220725 16:15:30.751"/>
+<msg timestamp="20220726 11:23:55.741" level="INFO">${resources} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20220726 11:23:54.163" endtime="20220726 11:23:55.741"/>
 </kw>
 <kw name="Get Value From Json" library="JSONLibrary">
 <var>${status_text}</var>
 <arg>${resources.json()}</arg>
 <arg>$.contents[text]</arg>
 <doc>Get Value From JSON using JSONPath</doc>
-<status status="NOT RUN" starttime="20220725 16:15:30.752" endtime="20220725 16:15:30.752"/>
+<msg timestamp="20220726 11:23:55.778" level="INFO">${status_text} = ['I LOVE API SUD SUD']</msg>
+<status status="PASS" starttime="20220726 11:23:55.741" endtime="20220726 11:23:55.778"/>
 </kw>
 <kw name="Log To Console" library="BuiltIn">
 <arg>${resources.json()}</arg>
 <doc>Logs the given message to the console.</doc>
-<status status="NOT RUN" starttime="20220725 16:15:30.752" endtime="20220725 16:15:30.752"/>
+<status status="PASS" starttime="20220726 11:23:55.779" endtime="20220726 11:23:55.780"/>
 </kw>
 <kw name="Should Be Equal As Strings" library="BuiltIn">
-<arg>${status_text}</arg>
+<arg>${status_text}[0]</arg>
 <arg>I LOVE API SUD SUD</arg>
 <doc>Fails if objects are unequal after converting them to strings.</doc>
-<status status="NOT RUN" starttime="20220725 16:15:30.752" endtime="20220725 16:15:30.752"/>
+<status status="PASS" starttime="20220726 11:23:55.780" endtime="20220726 11:23:55.781"/>
 </kw>
 <tag>03</tag>
-<status status="FAIL" starttime="20220725 16:15:28.850" endtime="20220725 16:15:30.753">Url: https://api.funtranslations.com/translate/yoda.json Expected status: 429 != 200</status>
+<status status="PASS" starttime="20220726 11:23:54.162" endtime="20220726 11:23:55.781"/>
 </test>
-<status status="FAIL" starttime="20220725 16:15:28.653" endtime="20220725 16:15:30.754"/>
+<status status="PASS" starttime="20220726 11:23:53.971" endtime="20220726 11:23:55.782"/>
 </suite>
 <statistics>
 <total>
-<stat pass="0" fail="1" skip="0">All Tests</stat>
+<stat pass="1" fail="0" skip="0">All Tests</stat>
 </total>
 <tag>
-<stat pass="0" fail="1" skip="0">03</stat>
+<stat pass="1" fail="0" skip="0">03</stat>
 </tag>
 <suite>
-<stat pass="0" fail="1" skip="0" id="s1" name="RO API">RO API</stat>
+<stat pass="1" fail="0" skip="0" id="s1" name="RO API">RO API</stat>
 </suite>
 </statistics>
 <errors>
