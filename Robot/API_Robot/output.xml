@@ -1,72 +1,101 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generator="Robot 5.0.1 (Python 3.10.5 on win32)" generated="20220726 11:23:53.962" rpa="false" schemaversion="3">
+<robot generator="Robot 5.0.1 (Python 3.10.5 on win32)" generated="20220726 14:30:43.996" rpa="false" schemaversion="3">
 <suite id="s1" name="RO API" source="D:\SourceT\Robot\API_Robot\RO_API.robot">
-<test id="s1-t1" name="TC03 Post assests" line="24">
+<test id="s1-t1" name="TC04 Post assests ms" line="34">
 <kw name="Create Dictionary" library="BuiltIn">
 <var>${jason_body_req}</var>
-<arg>text=I LOVE API SUD SUD</arg>
+<arg>id=1234</arg>
+<arg>firstname=aaaa</arg>
+<arg>lastname=charoensri</arg>
 <doc>Creates and returns a dictionary based on the given ``items``.</doc>
-<msg timestamp="20220726 11:23:54.163" level="INFO">${jason_body_req} = {'text': 'I LOVE API SUD SUD'}</msg>
-<status status="PASS" starttime="20220726 11:23:54.163" endtime="20220726 11:23:54.163"/>
+<msg timestamp="20220726 14:30:44.360" level="INFO">${jason_body_req} = {'id': '1234', 'firstname': 'aaaa', 'lastname': 'charoensri'}</msg>
+<status status="PASS" starttime="20220726 14:30:44.360" endtime="20220726 14:30:44.360"/>
 </kw>
 <kw name="POST" library="RequestsLibrary">
 <var>${resources}</var>
-<arg>url=https://api.funtranslations.com/translate/yoda.json</arg>
+<arg>url=http://localhost:3000/create</arg>
 <arg>expected_status=200</arg>
 <arg>json=${jason_body_req}</arg>
 <doc>Sends a POST request.</doc>
-<msg timestamp="20220726 11:23:55.740" level="INFO">POST Request : url=https://api.funtranslations.com/translate/yoda.json 
- path_url=/translate/yoda.json 
- headers={'User-Agent': 'python-requests/2.28.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '30', 'Content-Type': 'application/json'} 
- body=b'{"text": "I LOVE API SUD SUD"}' 
+<msg timestamp="20220726 14:30:44.410" level="INFO">POST Request : url=http://localhost:3000/create 
+ path_url=/create 
+ headers={'User-Agent': 'python-requests/2.28.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '61', 'Content-Type': 'application/json'} 
+ body=b'{"id": "1234", "firstname": "aaaa", "lastname": "charoensri"}' 
  </msg>
-<msg timestamp="20220726 11:23:55.740" level="INFO">POST Response : url=https://api.funtranslations.com/translate/yoda.json 
+<msg timestamp="20220726 14:30:44.410" level="INFO">POST Response : url=http://localhost:3000/create 
  status=200, reason=OK 
- headers={'Date': 'Tue, 26 Jul 2022 04:23:54 GMT', 'Server': 'Apache', 'Access-Control-Allow-Origin': '*', 'X-Auth-Status': 'true', 'X-RateLimit-Limit': '5 per hour', 'X-RateLimit-Remaining': '3', 'Cache-Control': 'max-age={expires}, pre-check=86400, post-check=43200', 'Expires': '0', 'X-Powered-By': 'Luracast Restler v3.0.0rc3', 'Content-Language': 'en', 'Upgrade': 'h2', 'Connection': 'Upgrade, Keep-Alive', 'Vary': 'User-Agent', 'Keep-Alive': 'timeout=5, max=100', 'Transfer-Encoding': 'chunked', 'Content-Type': 'application/json; charset=utf-8'} 
- body={
-    "success": {
-        "total": 1
-    },
-    "contents": {
-        "translated": "I love api sud sud",
-        "text": "I LOVE API SUD SUD",
-        "translation": "yoda"
-    }
-} 
+ headers={'X-Powered-By': 'Express', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '56', 'ETag': 'W/"38-hWimvTvklzW+5aJJiLYq+mOI8rM"', 'Date': 'Tue, 26 Jul 2022 07:30:44 GMT', 'Connection': 'keep-alive', 'Keep-Alive': 'timeout=5'} 
+ body={"id":"1234","firstname":"aaaa","lastname":"charoensri"} 
  </msg>
-<msg timestamp="20220726 11:23:55.741" level="INFO">${resources} = &lt;Response [200]&gt;</msg>
-<status status="PASS" starttime="20220726 11:23:54.163" endtime="20220726 11:23:55.741"/>
+<msg timestamp="20220726 14:30:44.410" level="INFO">${resources} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20220726 14:30:44.360" endtime="20220726 14:30:44.410"/>
+</kw>
+<kw name="Debug" library="DebugLibrary">
+<doc>Open a interactive shell, run any RobotFramework keywords.</doc>
+<status status="PASS" starttime="20220726 14:30:44.411" endtime="20220726 14:30:46.294"/>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<arg>${resources.status_code}</arg>
+<arg>200</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<msg timestamp="20220726 14:30:46.296" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<status status="PASS" starttime="20220726 14:30:46.294" endtime="20220726 14:30:46.296"/>
 </kw>
 <kw name="Get Value From Json" library="JSONLibrary">
 <var>${status_text}</var>
 <arg>${resources.json()}</arg>
-<arg>$.contents[text]</arg>
+<arg>$..firstname</arg>
 <doc>Get Value From JSON using JSONPath</doc>
-<msg timestamp="20220726 11:23:55.778" level="INFO">${status_text} = ['I LOVE API SUD SUD']</msg>
-<status status="PASS" starttime="20220726 11:23:55.741" endtime="20220726 11:23:55.778"/>
-</kw>
-<kw name="Log To Console" library="BuiltIn">
-<arg>${resources.json()}</arg>
-<doc>Logs the given message to the console.</doc>
-<status status="PASS" starttime="20220726 11:23:55.779" endtime="20220726 11:23:55.780"/>
+<msg timestamp="20220726 14:30:46.333" level="INFO">${status_text} = ['aaaa']</msg>
+<status status="PASS" starttime="20220726 14:30:46.297" endtime="20220726 14:30:46.333"/>
 </kw>
 <kw name="Should Be Equal As Strings" library="BuiltIn">
 <arg>${status_text}[0]</arg>
-<arg>I LOVE API SUD SUD</arg>
+<arg>aaaa</arg>
 <doc>Fails if objects are unequal after converting them to strings.</doc>
-<status status="PASS" starttime="20220726 11:23:55.780" endtime="20220726 11:23:55.781"/>
+<status status="PASS" starttime="20220726 14:30:46.333" endtime="20220726 14:30:46.333"/>
 </kw>
-<tag>03</tag>
-<status status="PASS" starttime="20220726 11:23:54.162" endtime="20220726 11:23:55.781"/>
+<kw name="Get Value From Json" library="JSONLibrary">
+<var>${status_text}</var>
+<arg>${resources.json()}</arg>
+<arg>$..id</arg>
+<doc>Get Value From JSON using JSONPath</doc>
+<msg timestamp="20220726 14:30:46.359" level="INFO">${status_text} = ['1234']</msg>
+<status status="PASS" starttime="20220726 14:30:46.334" endtime="20220726 14:30:46.359"/>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<arg>${status_text}[0]</arg>
+<arg>1234</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" starttime="20220726 14:30:46.361" endtime="20220726 14:30:46.361"/>
+</kw>
+<kw name="Get Value From Json" library="JSONLibrary">
+<var>${status_text}</var>
+<arg>${resources.json()}</arg>
+<arg>$..lastname</arg>
+<doc>Get Value From JSON using JSONPath</doc>
+<msg timestamp="20220726 14:30:46.382" level="INFO">${status_text} = ['charoensri']</msg>
+<status status="PASS" starttime="20220726 14:30:46.362" endtime="20220726 14:30:46.382"/>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<arg>${status_text}[0]</arg>
+<arg>charoensri</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" starttime="20220726 14:30:46.384" endtime="20220726 14:30:46.384"/>
+</kw>
+<tag>04</tag>
+<status status="PASS" starttime="20220726 14:30:44.359" endtime="20220726 14:30:46.385"/>
 </test>
-<status status="PASS" starttime="20220726 11:23:53.971" endtime="20220726 11:23:55.782"/>
+<status status="PASS" starttime="20220726 14:30:43.996" endtime="20220726 14:30:46.387"/>
 </suite>
 <statistics>
 <total>
 <stat pass="1" fail="0" skip="0">All Tests</stat>
 </total>
 <tag>
-<stat pass="1" fail="0" skip="0">03</stat>
+<stat pass="1" fail="0" skip="0">04</stat>
 </tag>
 <suite>
 <stat pass="1" fail="0" skip="0" id="s1" name="RO API">RO API</stat>
